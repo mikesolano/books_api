@@ -91,12 +91,12 @@ Populate data
 insert into books
     (title, author_first_name, author_last_name, year)
 values
-       ('Dune', 'Frank', 'Herbert', 1964);
+       ('Dune', 'Frank', 'Herbert', 1965);
 
 insert into books
     (title, author_first_name, author_last_name, year)
 values
-       ('1984', 'George', 'Orwell', 1941);
+       ('1984', 'George', 'Orwell', 1949);
 ```
 
 Check data
