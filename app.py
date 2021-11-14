@@ -7,7 +7,7 @@ app = Flask(__name__)
 app.config.from_object('config.Development')
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
-from app import routes, models
+from books_api import routes, models
 
 
 if __name__ == '__main__':

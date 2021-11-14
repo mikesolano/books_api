@@ -1,9 +1,9 @@
 from flask import jsonify, request, make_response
 from marshmallow import ValidationError
 
-from app.models import Book
-from app.schemas import BookSchema
-from run import app
+from books_api.models import Book
+from books_api.schemas import BookSchema
+from app import app
 
 # create schemas objects
 book_schema = BookSchema()
@@ -44,7 +44,7 @@ def create_book():
 
     return make_response(jsonify(book_schema.dump(result)), 201)
 
-# @app.rout('/api/books/<int:id>', methods=['PUT', 'PATCH'])
+# @books_api.rout('/api/books/<int:id>', methods=['PUT', 'PATCH'])
 # def update_book():
 
 
