@@ -12,15 +12,25 @@ books_schema = BookSchema(many=True)
 
 @app.route('/api/environment', methods=['GET'])
 def get_env():
-    return make_response(app.config['FLASK_ENV'], 200)
+    return make_response(jsonify({"environment": app.config['FLASK_ENV']}), 200)
 
 
 @app.route('/api/books', methods=['GET'])
 def get_books():
-    return make_response(jsonify(books_schema.dump(Book.query.all())), 200)
+    books = books_schema.dump(Book.query.all())
+    return make_response(jsonify({"books": books}), 200)
 
 
 @app.route('/api/books/<int:id>', methods=['GET'])
+def get_book(id):
+    book = book_schema.dump(Book.query.get(id))
+    if not book:
+        return make_response({"message": "Book not found"}, 400)
+    else:
+        return make_response(jsonify(book), 200)
+
+
+@app.route('/api/books/<int:id>', methods=['PUT'])
 def get_book(id):
     book = book_schema.dump(Book.query.get(id))
     if not book:
@@ -44,8 +54,6 @@ def create_book():
 
     return make_response(jsonify(book_schema.dump(result)), 201)
 
-# @books_api.rout('/api/books/<int:id>', methods=['PUT', 'PATCH'])
-# def update_book():
 
 
 
