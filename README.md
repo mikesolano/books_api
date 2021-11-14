@@ -1,11 +1,18 @@
 # Instructions for Using
+**PLEASE NOTE** This app uses a mock database. The password is plainly visible in this README and in the code. 
+
+**DO NOT USE IN PRODUCTION** 
+
+Best practices to mitigate this security risk include:
+- Use of an environmental variable to store the database URI string and pulling that string at runtime
+- Use of a keystore to store the password and constructing the database string at runtime 
 
 ## Create a new docker postgres database
 This only needs to be done once. After the initial creation skip to the next section
 
 Pull down a postgres docker container
 ```console
-sudo docker run --name test-postgres-db -e POSTGRES_PASSWORD=docker -p 5432:5432 -d postgres
+$ sudo docker run --name test-postgres-db -e POSTGRES_PASSWORD=docker -p 5432:5432 -d postgres
 ```
 
 > The -p 5432:5432 maps the container port 5432 to localhost post 5432
@@ -14,21 +21,21 @@ sudo docker run --name test-postgres-db -e POSTGRES_PASSWORD=docker -p 5432:5432
 
 Check the running containers
 ```console
-msolano@pop-os:~$ sudo docker container ls
+$ sudo docker container ls
 CONTAINER ID   IMAGE      COMMAND                  CREATED         STATUS         PORTS                                       NAMES
 109bd522d76b   postgres   "docker-entrypoint.s…"   7 seconds ago   Up 6 seconds   0.0.0.0:5432->5432/tcp, :::5432->5432/tcp   test-postgres-db
 ```
 
 Stop docker container
 ```console
- docker stop <CONTAINER ID>
+$ docker stop <CONTAINER ID>
 ```
 
 ## Start an existing db container (assume setup is same as in previous section)
 
 Show all docker containers (including those not running) to find an existing container
 ```console
-msolano@pop-os:~$ sudo docker container ls --all
+$ sudo docker container ls --all
 CONTAINER ID   IMAGE         COMMAND                  CREATED      STATUS                  PORTS     NAMES
 109bd522d76b   postgres      "docker-entrypoint.s…"   2 days ago   Exited (0) 2 days ago             test-postgres-db
 b5ed9dce578a   hello-world   "/hello"                 2 days ago   Exited (0) 2 days ago             lucid_faraday
@@ -36,20 +43,19 @@ b5ed9dce578a   hello-world   "/hello"                 2 days ago   Exited (0) 2 
 
 Start an existing container
 ```console
-sudo docker start <CONTAINER ID>
+$ sudo docker start <CONTAINER ID>
 ```
-
 
 ## Test connectivity to docker postgres database
 
 Check if postgres container is accepting connections
 ```console
-pg_isready -d test-postgres-db -h localhost -p 5432 -U postgres
+$ pg_isready -d test-postgres-db -h localhost -p 5432 -U postgres
 ```
 
 Connect using psql
 ```console
-psql -h localhost -U postgres
+$ psql -h localhost -U postgres
 ```
 
 Check databases
@@ -99,7 +105,8 @@ select * from books;
 ```
 
 ## Run the application
-Once this database is setup and running, you may run the application and interact with it
+Once this database is setup and running, you may run the application and 
+interact with it
 
 
 
