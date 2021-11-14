@@ -1,5 +1,6 @@
 Flask~=2.0.2
 flask-sqlalchemy~=2.5.1
-flask-marshmallow
-marshmallow_sqlalchemy
+flask-marshmallow~=0.14.0
+marshmallow_sqlalchemy~=0.26.1
 psycopg2-binary~=2.9.2
+marshmallow~=3.14.0
