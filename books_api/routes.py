@@ -31,12 +31,27 @@ def get_book(id):
 
 
 @app.route('/api/books/<int:id>', methods=['PUT'])
-def get_book(id):
-    book = book_schema.dump(Book.query.get(id))
+def update_book(id):
+    book = Book.query.get(id)
     if not book:
         return make_response({"message": "Book not found"}, 400)
     else:
-        return make_response(jsonify(book), 200)
+        try:
+            data = book_schema.load(request.get_json())
+        except ValidationError as e:
+            return make_response(jsonify({"messages": e.messages}), 400)
+
+        if data['title']:
+            book.title = data['title']
+        if data['author_first_name']:
+            book.author_first_name = data['author_first_name']
+        if data['author_last_name']:
+            book.author_last_name = data['author_last_name']
+        if data['year']:
+            book.year = data['year']
+
+        result = book_schema.dump(book.update())
+        return make_response(jsonify(book_schema.dump(result)), 200)
 
 
 @app.route('/api/books', methods=['POST'])
