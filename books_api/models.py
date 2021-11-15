@@ -2,6 +2,7 @@ from app import db
 
 
 class Book(db.Model):
+    """ Book entity to represent rows on the books table """
     __tablename__ = 'books'
 
     # column to property mapping
@@ -36,13 +37,24 @@ class Book(db.Model):
         return self.title
 
     def __repr__(self):
-        return f"<Book {self.title}"
+        return f"Book(id={self.id if self.id else None}, " \
+               f"title={self.title}, " \
+               f"author_first_name={self.author_first_name}, " \
+               f"author_last_name={self.author_last_name}, " \
+               f"year={self.year})"
 
     def create(self):
         db.session.add(self)
         db.session.commit()
         return self
 
-    def update(self):
+    def update(self, data):
+        for key in data:
+            setattr(self, key, data[key])
+        db.session.commit()
+        return self
+
+    def delete(self):
+        db.session.delete(self)
         db.session.commit()
         return self

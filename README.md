@@ -1,4 +1,4 @@
-# Instructions for Using
+# Instructions
 **PLEASE NOTE** This app uses a mock database. The password is plainly visible in this README and in the code. 
 
 **DO NOT USE IN PRODUCTION** 
