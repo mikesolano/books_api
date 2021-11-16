@@ -35,18 +35,21 @@ def create_book():
 @app.route('/api/books', methods=['GET'])
 def get_books():
     """ Get all books """
-    books = books_schema.dump(Book.query.all())
-    return make_response(jsonify({"books": books}), 200)
+    books = Book.query.all()
+    if not books:
+        return make_response({"message": "Books not found"}, 400)
+    else:
+        return make_response(jsonify({"books": books_schema.dump(books)}), 200)
 
 
 @app.route('/api/books/<int:id>', methods=['GET'])
 def get_book(id):
     """ Get a single book """
-    book = book_schema.dump(Book.query.get(id))
+    book = Book.query.get(id)
     if not book:
         return make_response({"message": "Book not found"}, 400)
     else:
-        return make_response(jsonify(book), 200)
+        return make_response(jsonify(book_schema.dump(book)), 200)
 
 
 @app.route('/api/books/<int:id>', methods=['PUT', 'PATCH'])
