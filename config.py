@@ -1,7 +1,7 @@
 class Config:
     """ base configuration """
     FLASK_ENV = 'DEFAULT'
-    JSON_SORT_KEYS = True
+    JSON_SORT_KEYS = False
 
 
 class Development(Config):

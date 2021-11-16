@@ -57,11 +57,13 @@ class TestRoutes(unittest.TestCase):
     def test_get_book(self):
         with app.test_client() as client:
             # test for known book
-            response = client.get('/api/books/1')
+            uri = '/api/books/1'
+            response = client.get(uri)
             self.assertEqual(200, response.status_code)
             self.assertIsNotNone(response.json)
             self.assertIn('id', response.json.keys())
             self.assertEqual(1, response.json['id'])
+            self.assertEqual(uri, response.json['_links']['self'])
 
             # test for book that doesn't exist
             response = client.get('api/books/999999999')
